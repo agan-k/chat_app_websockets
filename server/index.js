@@ -2,16 +2,19 @@ const express = require('express')
 
 const config = require('./config/app')
 
+const bodyParser  = require('body-parser')
 
 const router = require('./router')
 
 const app = express()
 
+// We're using two body parsers because one is specifically for uploading images and the other is for packaging up the json 
+app.use(bodyParser.urlencoded({extended: true}))
+app.use(bodyParser.json())
 app.use(router)
 
 const PORT = config.appPort
 
 app.listen(PORT, () => {
-  console.log(`Server is running on ${PORT}`)
-  console.log(config)
+  console.warn(`Server is running on ${PORT}`)
 }) 

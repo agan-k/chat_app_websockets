@@ -1,12 +1,11 @@
 const router = require('express').Router()
 
-router.post('/home', (req, res) => {
-  return res.send('Home Screen')
+router.get('/home', (req, res) => {
+    return res.send('Home screen')
 })
 
-router.post('/login', (req, res) => {
-  return res.send('Login screen works now')
-})
-
+router.use('/', require('./auth'))
+// router.use('/users', require('./user'))
+// router.use('/chats', require('./chat'))
 
 module.exports = router
