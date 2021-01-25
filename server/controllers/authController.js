@@ -1,12 +1,18 @@
 const User = require("../models").User;
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
+const config = require('../config/app')
+
+// Bringing in the validation response from the auth router
+const {validationResult} = require('express-validator')
 
 exports.login = async (req, res) => {
   const { email, password } = req.body;
 
   try {
-    // finf the user
+
+    const secret = require('crypto').randomBytes(64).toString('hex')
+    // find the user
     const user = await User.findOne({
       where: {
         email,
@@ -29,6 +35,12 @@ exports.login = async (req, res) => {
 };
 
 exports.register = async (req, res) => {
+
+  const errors = validationResult(req)
+
+  if (!errors.isEmpty()) {
+    return res.status(400).json({errors: errors.array()})
+  }
   try {
     const user = await User.create(req.body);
 
@@ -40,10 +52,10 @@ exports.register = async (req, res) => {
 };
 
 const generateToken = (user) => {
-  delete user.password;
+  // delete user.password;
   // 86400 milliseconds is equal to one week
   // the payload is the user
-  const token = jwt.sign(user, "secret", { expiresIn: 86400 });
+  const token = jwt.sign(user, config.appKey, { expiresIn: 86400 });
 
   // combining the user with the token with the spread operator
   return { ...{ user }, ...{ token } };
