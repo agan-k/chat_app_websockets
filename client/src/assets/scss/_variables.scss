@@ -1,5 +1,24 @@
-$bg-main: #793EDD;
-$bg-light: #E2D6F8;
-$bg-gray: #f5f6f8;
+$primary: rgb(56,156,124);
+$secondary: rgb(255,169,115);
+$bg-light: rgb(238,238,238);
+$bg-dark: rgb(53,53,46);
+
 $success: #42b983;
 $danger: #b94242;
+
+// BREAKPOINTS
+@mixin mobile {
+  @media (max-width: 599px) {
+    @content;
+  }
+}
+@mixin medium {
+  @media (min-width: 900px) {
+    @content;
+  }
+}
+@mixin large {
+  @media (min-width: 1200px) {
+    @content;
+  }
+}
