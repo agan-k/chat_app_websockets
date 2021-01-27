@@ -45,7 +45,7 @@ exports.register = async (req, res) => {
 };
 
 const generateToken = (user) => {
-  // delete user.password;
+  delete user.password;
   // 86400 milliseconds is equal to one week
   // the payload is the user
   const token = jwt.sign(user, config.appKey, { expiresIn: 86400 });
