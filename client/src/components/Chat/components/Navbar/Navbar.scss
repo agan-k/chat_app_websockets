@@ -4,17 +4,18 @@
     display: flex;
     justify-content: space-between;
     height: 60px;
-    background-color: $bg-main;
+    background-color: $bg-light;
     padding: 0 10px;
 
     h2 {
         display: flex;
+        font-weight: 400;
         align-self: center;
-        color: white;
+        color: $primary;
     }
 
     .fa-icon {
-        color: white;
+        color:$secondary;
         margin-left: 5px;
     }
 
@@ -29,7 +30,7 @@
         p {
             display: flex;
             align-self: center;
-            color: white;
+            color: $primary;
         }
 
         img {

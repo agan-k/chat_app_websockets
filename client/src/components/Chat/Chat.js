@@ -1,5 +1,6 @@
 import React from "react";
-import {useSelector} from 'react-redux'
+import { useSelector } from 'react-redux'
+import Navbar from './components/Navbar/Navbar'
 
 const Chat = () => {
 
@@ -7,8 +8,7 @@ const Chat = () => {
   console.log(user)
   return (
     <div>
-      <h1>Welcome</h1>
-      <p>{user.user.firstName}</p>
+      <Navbar/>
     </div>
   )
   

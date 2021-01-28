@@ -16,6 +16,9 @@ app.use(bodyParser.json())
 app.use(cors())
 app.use(router)
 
+// Telling express where to serve static assets from 
+app.use(express.static(__dirname + '/public'))
+
 const PORT = config.appPort
 
 app.listen(PORT, () => {

@@ -9,8 +9,8 @@ exports.login = async (req, res) => {
 
   try {
 
-    const secret = require('crypto').randomBytes(64).toString('hex')
-    // find the user
+    // const secret = require('crypto').randomBytes(64).toString('hex')
+    // find the user - when sequelize returns this user here it is a sequelize instance of that model - which can't access the getters in the model
     const user = await User.findOne({
       where: {
         email,
