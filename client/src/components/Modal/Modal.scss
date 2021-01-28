@@ -23,7 +23,7 @@
             font-family: Helvetica, Arial, sans-serif;
 
             .modal-header {
-                background-color: $bg-light;
+                background-color: $secondary;
                 padding: 10px;
                 color: white;
                 border-top-left-radius: 10px;
@@ -54,7 +54,7 @@
                 border-bottom-right-radius: 10px;
 
                 button {
-                    background-color: $bg-dark;
+                    background-color: $secondary;
                     border: none;
                     padding: 5px;
                     width: 70px;

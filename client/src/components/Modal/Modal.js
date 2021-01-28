@@ -12,9 +12,11 @@ console.log(props)
     })
   
   const closeModal = (e) => {
+    // we need to stop the propagation to avoid the event bubbling up from the profile drop down
     e.stopPropagation()
 
     if (e.target.classList.contains('modal-close')) {
+      // Click function is a simple function defined in nav that flipped the state of the modal
       return props.click()
     }
   }
