@@ -51,5 +51,6 @@ const generateToken = (user) => {
   const token = jwt.sign(user, config.appKey, { expiresIn: 86400 });
 
   // combining the user with the token with the spread operator
+  // These are separated so that we can set the token in local storage
   return { ...{ user }, ...{ token } };
 };

@@ -2,8 +2,11 @@ import React from 'react'
 import './Modal.scss'
 
 const Modal = (props) => {
-
-  const findKey = (name) => 
+console.log(props)
+  // Elements in the modal are passed along as children since there is an opening and closing component
+  // All these children have a key associated with them so you can write a function that return the element with that key 
+  // This allows for complete flexibility if we want to add more Ui elements or rearrange what we have without affecting the structure
+  const findByKey = (name) => 
     props.children.map(child => {
       if (child.key === name) return child
     })

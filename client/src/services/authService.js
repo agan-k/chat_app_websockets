@@ -48,8 +48,10 @@ const authService = {
   },
 }
 
+// setting local storage for persistent login
 const setHeadersAndStorage = ({ user, token }) => {
   API.defaults.headers['Authorization'] = `Bearer ${token}`
+  // You cannot set plane objects in local storage so we need to stringify the user
   localStorage.setItem('user', JSON.stringify(user))
   localStorage.setItem('token', token)
 }
