@@ -1,4 +1,6 @@
 const models = require("../models");
+
+// op gives us fine tuning on the restrictions on the relationships between tables
 const { Op } = require("sequelize");
 const { sequelize } = require("../models");
 const User = models.User;
@@ -6,11 +8,13 @@ const Chat = models.Chat;
 const ChatUser = models.ChatUser;
 const Message = models.Message;
 
+// return all chats that respond to the user who activated this request
 exports.index = async (req, res) => {
   const user = await User.findOne({
     where: {
       id: req.user.id,
     },
+    // include expects an array of relationships
     include: [
       {
         model: Chat,
@@ -42,11 +46,14 @@ exports.index = async (req, res) => {
 };
 
 exports.create = async (req, res) => {
+  // id of the person with which the user is creating a new chat (friend id)
   const { partnerId } = req.body;
 
+  // transactions allow us to roll back any actions if errors occur
   const t = await sequelize.transaction();
 
   try {
+    // if this returns then it means that these two already have a chat open
     const user = await User.findOne({
       where: {
         id: req.user.id,
@@ -72,7 +79,7 @@ exports.create = async (req, res) => {
     if (user && user.Chats.length > 0)
       return res.status(403).json({
         status: "Error",
-        message: "Chat with user already exists",
+        message: "Chat with this user already exists",
       });
 
     const chat = await Chat.create({ type: "dual" }, { transaction: t });
@@ -131,6 +138,7 @@ exports.messages = async (req, res) => {
   const offset = page > 1 ? page * limit : 0;
 
   const messages = await Message.findAndCountAll({
+    // return me all the messages where this chat id is the one we receive with our request
     where: {
       chatId: req.query.id,
     },
@@ -164,7 +172,7 @@ exports.imageUpload = (req, res) => {
     return res.json({ url: req.file.filename });
   }
 
-  return res.status(500).json("No omage uploaded");
+  return res.status(500).json("No message uploaded");
 };
 
 exports.addUserToGroup = async (req, res) => {
