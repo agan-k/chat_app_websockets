@@ -1,9 +1,10 @@
 import React from 'react'
+import './Friend.scss'
 
-const Friend = () => {
+const Friend = ({chat}) => {
   return (
     <div>
-      Friend
+      <p>{chat.Users[0].firstName} {chat.Users[0].lastName}</p>
     </div>
   )
 }

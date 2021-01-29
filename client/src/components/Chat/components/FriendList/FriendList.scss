@@ -1,6 +1,6 @@
 @import "../../../../assets/scss/variables";
 
-#friends {
+.friends {
     display: flex;
     flex-direction: column;
     padding: 15px 0;
@@ -15,7 +15,7 @@
         margin-bottom: 0;
     }
 
-    #title {
+    .title {
         display: flex;
         justify-content: space-between;
         padding: 0 10px;
@@ -23,7 +23,7 @@
 
         button {
             border: none;
-            background-color: $bg-main;
+            background-color: $bg-dark;
             color: white;
             width: 60px;
             padding: 5px;
@@ -39,7 +39,7 @@
         margin-bottom: 0
     }
 
-    #friends-box {
+    .friends-box {
         overflow-y: auto;
         display: flex;
         text-align: left;
@@ -49,7 +49,7 @@
         }
     }
 
-    #no-chat {
+    .no-chat {
         padding: 10px;
     }
 
@@ -57,7 +57,7 @@
         background-color: #ececec;
     }
 
-    #suggestions {
+    .suggestions {
 
         margin-top: 10px;
         overflow-y: auto;

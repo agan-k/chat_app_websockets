@@ -1,18 +1,18 @@
 @import '../../../../assets/scss/variables';
 
-#messenger {
+.messenger {
     justify-content: space-between;
     padding: 15px;
     flex-grow: 2;
     background-color: white;
 
-    #messenger-wrap {
+    .messenger-wrap {
         display: flex;
         flex-direction: column;
         height: 100%;
         position: relative;
 
-        #settings {
+        .settings {
             border-radius: 5px;
             position: absolute;
             right: 12px;
@@ -33,7 +33,7 @@
                 .fa-icon {
                     position: relative;
                     font-size: 20px;
-                    color: $bg-main;
+                    color: $bg-dark;
                     margin-right: 5px;
                     min-width: 20px;
                 }
@@ -41,13 +41,13 @@
 
             p {
                 margin: 5px 0;
-                color: #000;
+                color: .000;
             }
         }
 
         &>.fa-icon {
             font-size: 20px;
-            color: $bg-main;
+            color: $bg-dark;
             right: 0;
             position: absolute;
             top: 0;
@@ -71,7 +71,7 @@
         margin-bottom: 10px;
     }
 
-    #delete-chat {
+    .delete-chat {
         background-color: $success;
         border: none;
         padding: 5px;
@@ -81,7 +81,7 @@
         cursor: pointer;
     }
 
-    #suggestions {
+    .suggestions {
 
         .suggestion {
             margin: 10px 0;
