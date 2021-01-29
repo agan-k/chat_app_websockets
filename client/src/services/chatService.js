@@ -1,6 +1,7 @@
 import API from "./api";
 
 const ChatService = {
+  // get all the chats for the currently logged in user
   fetchChats: () => {
     return API.get("/chats")
       .then(({ data }) => {
