@@ -1,27 +1,27 @@
 @import "../../../../assets/scss/variables";
 
-#input-container {
+.input-container {
     position: relative;
 
-    #image-upload-container {
+    .image-upload-container {
         display: flex;
         justify-content: space-between;
         padding: 2.5px 2.5px 2.5px 0;
         position: relative;
 
-        #image-upload {
+        .image-upload {
             display: flex;
         }
 
-        #message-notification {
+        .message-notification {
             display: flex;
             cursor: pointer;
-            border: 1px solid $bg-main;
+            border: 1px solid $bg-dark;
             border-radius: 15px;
             padding: 5px;
 
             .fa-icon {
-                color: $bg-main;
+                color: $bg-dark;
                 margin-right: 5px
             }
         }
@@ -32,7 +32,7 @@
             top: 0;
         }
 
-        #image-details {
+        .image-details {
             padding: 2px;
             border: 1px solid black;
             margin-right: 5px;
@@ -46,7 +46,7 @@
 
     }
 
-    #message-input {
+    .message-input {
         position: relative;
 
         input {
@@ -57,7 +57,7 @@
 
     .fa-icon {
         font-size: 20px;
-        color: $bg-main;
+        color: $bg-light;
         position: absolute;
         right: 5px;
         top: 8px;
@@ -78,7 +78,7 @@
         padding: 10px;
     }
 
-    #chat-image {
+    .chat-image {
         position: absolute;
         visibility: hidden;
         top: 0;

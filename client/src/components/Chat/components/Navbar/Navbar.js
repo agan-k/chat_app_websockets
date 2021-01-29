@@ -41,23 +41,22 @@ const Navbar = () => {
   const [showProfileModal, setShowProfileModal] = useState(false);
 
   return (
-    <div id="navbar">
-      <h2>Chat</h2>
+    <div className="navbar shadow-light">
+      <h2 className="hover">Chatty</h2>
       <div
         onClick={() => setShowProfileOptions(!showProfileOptions)}
-        id="profile-menu"
         className="profile-menu"
       >
-        <div className="profile-menu__image">
+        <div className="profile-menu__image hover">
           <img src={user.avatar} alt="Avatar" />
           </div>
-        <p>
+        <p className="hover">
           {user.firstName} {user.lastName}
         </p>
-        <FontAwesomeIcon icon="caret-down" className={showProfileOptions ? "fa-icon fa-icon--open" : "fa-icon" }/>
+        <FontAwesomeIcon icon="caret-down" className={showProfileOptions ? "fa-icon fa-icon--open" : "fa-icon hover" }/>
 
         {showProfileOptions && (
-          <div id="profile-options">
+          <div className="profile-options">
             <p onClick={() => setShowProfileModal(true)}>Profile</p>
             <p onClick={() => dispatch(logout())}>Logout</p>
           </div>
@@ -125,7 +124,7 @@ const Navbar = () => {
               </form>
             </Fragment>
             <Fragment key="footer">
-              <button onClick={submitForm} className="btn-success">Update</button>
+              <button onClick={submitForm} className="btn-success hover">Update</button>
             </Fragment>
           </Modal>
         )}

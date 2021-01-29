@@ -1,6 +1,6 @@
 @import '../../assets/scss/variables';
 
-#chat-container {
+.chat-container {
     display: flex;
     flex-direction: column;
     position: absolute;
@@ -8,11 +8,11 @@
     bottom: 0;
     right: 0;
     left: 0;
-    background-color: $bg-gray;
+    background-color: $bg-light;
     height: 100%;
     margin: 0 !important;
 
-    #chat-wrap {
+    .chat-wrap {
         display: flex;
         flex-direction: column;
         flex-grow: 1;

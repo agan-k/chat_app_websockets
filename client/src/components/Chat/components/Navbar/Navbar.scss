@@ -1,17 +1,17 @@
 @import "../../../../assets/scss/variables";
 
-#navbar {
+.navbar {
   display: flex;
   justify-content: space-between;
   height: 60px;
-  background-color: $bg-light;
+  background-color: $primary;
   padding: 0 10px;
 
   h2 {
     display: flex;
     font-weight: 400;
     align-self: center;
-    color: $primary;
+    color: #fff;
   }
 
   .fa-icon {
@@ -37,7 +37,7 @@
     p {
       display: flex;
       align-self: center;
-      color: $primary;
+      color: #fff;
     }
 
     &__image {
@@ -53,7 +53,7 @@
       }
     }
 
-    #profile-options {
+    .profile-options {
       position: absolute;
       top: 50px;
       border-radius: 5px;

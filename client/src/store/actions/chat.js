@@ -31,3 +31,7 @@ export const fetchChats = () => dispatch => {
     throw err
   })
 }
+
+export const setCurrentChat = (chat) => (dispatch) => {
+  dispatch({ type: SET_CURRENT_CHAT, payload: chat })
+}

@@ -1,17 +1,23 @@
 import React from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import Friend from '../Friend/Friend'
+import {setCurrentChat} from '../../../../store/actions/chat'
 import './FriendList.scss'
 
 const FriendList = () => {
 
+  const dispatch = useDispatch()
   const chats = useSelector(state => state.chatReducer.chats)
 
+  const openChats = (chat) => {
+    dispatch(setCurrentChat(chat))
+  }
+
   return (
-    <div className="friends">
+    <div className="friends shadow-light">
       <div className="title">
         <h3 className="m-0">Friends</h3>  
-        <button>ADD</button>
+        <button className="hover">ADD</button>
       </div>
       <hr />
       
@@ -19,7 +25,7 @@ const FriendList = () => {
         {
           chats.length > 0
             ? chats.map(chat => {
-              <Friend chat={chat} key={chat.id} />
+              <Friend onClick={() => openChats(chat)} chat={chat} key={chat.id} />
             })
             : <p className="no-chat">No friends here</p>
         }
