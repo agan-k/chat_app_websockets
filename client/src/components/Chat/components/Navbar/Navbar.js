@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { logout } from "../../../../store/actions/auth";
 import Modal from "../../../Modal/Modal";
+import {updateProfile} from '../../../../store/actions/auth'
 import "./Navbar.scss";
 
 const Navbar = () => {
@@ -19,7 +20,10 @@ const Navbar = () => {
   const submitForm = (e) => {
     e.preventDefault();
 
-    const form = { firstName, lastName, email, gender, password, avatar }
+    const form = { firstName, lastName, email, gender, avatar }
+
+    // To safeguard when no password is sent to be updated to it uses the initialized state from the hook
+    if (password.length > 0) form.password = password
     
     // The formData API helps us with the upload of the image
     const formData = new FormData()
@@ -29,10 +33,12 @@ const Navbar = () => {
       // FormData allows us to create these key value pairs
       formData.append(key, form[key])
     }
+    // Calling then to close the modal after successful submit
+    dispatch(updateProfile(formData)).then(() => setShowProfileModal(false))
   };
 
   const [showProfileOptions, setShowProfileOptions] = useState(false);
-  const [showProfileModal, setShowProfileModal] = useState(true);
+  const [showProfileModal, setShowProfileModal] = useState(false);
 
   return (
     <div id="navbar">
@@ -40,12 +46,15 @@ const Navbar = () => {
       <div
         onClick={() => setShowProfileOptions(!showProfileOptions)}
         id="profile-menu"
+        className="profile-menu"
       >
-        <img width="40" height="40" src={user.avatar} alt="Avatar" />
+        <div className="profile-menu__image">
+          <img src={user.avatar} alt="Avatar" />
+          </div>
         <p>
           {user.firstName} {user.lastName}
         </p>
-        <FontAwesomeIcon icon="caret-down" className="fa-icon" />
+        <FontAwesomeIcon icon="caret-down" className={showProfileOptions ? "fa-icon fa-icon--open" : "fa-icon" }/>
 
         {showProfileOptions && (
           <div id="profile-options">
@@ -116,7 +125,7 @@ const Navbar = () => {
               </form>
             </Fragment>
             <Fragment key="footer">
-              <button className="btn-success">Update</button>
+              <button onClick={submitForm} className="btn-success">Update</button>
             </Fragment>
           </Modal>
         )}

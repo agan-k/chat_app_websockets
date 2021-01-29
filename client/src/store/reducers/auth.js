@@ -36,6 +36,12 @@ const authReducer = (state = initialState, action) => {
         isLoggedIn: false
       }
     
+    case UPDATE_PROFILE:
+      return {
+        ...state,
+        user: payload
+      }
+    
     default: {
       return state
     }

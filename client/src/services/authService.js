@@ -33,6 +33,7 @@ const authService = {
   },
 
   updateProfile: (data) => {
+    // We need to change the headers since we're using form data now and not just the json body
     const headers = {
       headers: {'Content-Type': 'application/x-www-form-urlencoded'}
     }
