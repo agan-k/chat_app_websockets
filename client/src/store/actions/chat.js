@@ -52,3 +52,7 @@ export const setSocket = (socket) => dispatch => {
 export const receivedMessage = (message, userId) => dispatch => {
   dispatch({ type: RECEIVED_MESSAGE, payload: {message, userId} })
 }
+
+export const senderTyping = (sender) => dispatch => {
+  dispatch({ type: SENDER_TYPING, payload: sender })
+}

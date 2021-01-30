@@ -39,7 +39,7 @@ const chatReducer = (state = initialState, action) => {
         ...state,
         currentChat: payload,
         scrollBottom: state.scrollBottom + 1,
-        newMessage: {chatId: null, seen: null}
+        newMessage: { chatId: null, seen: null },
       };
 
     case SET_CURRENT_CHAT:
@@ -195,6 +195,22 @@ const chatReducer = (state = initialState, action) => {
         scrollBottom,
       };
     }
+
+    case SENDER_TYPING: {
+      if (payload.typing) {
+        return {
+          ...state,
+          senderTyping: payload,
+          scrollBottom: state.scrollBottom + 1,
+        };
+      }
+
+      return {
+        ...state,
+        senderTyping: payload,
+      };
+    }
+
     default: {
       return state;
     }

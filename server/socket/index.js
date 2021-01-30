@@ -1,6 +1,6 @@
 const socketIo = require("socket.io");
 const { sequelize } = require("sequelize");
-const Message = require('../models').Message
+const Message = require("../models").Message;
 // inbuilt bap allows us to save key value pairs - like an Object, but better suited for our purposes here - It also has some inbuilt methods like has, set and complete
 const users = new Map();
 const userSockets = new Map();
@@ -9,7 +9,6 @@ const SocketServer = (server) => {
   const io = socketIo(server);
 
   io.on("connection", (socket) => {
-
     socket.on("join", async (user) => {
       let sockets = [];
 
@@ -18,11 +17,11 @@ const SocketServer = (server) => {
         existingUser.sockets = [...existingUser.sockets, ...[socket.id]];
         users.set(user.id, existingUser);
         sockets = [...existingUser.sockets, ...[socket.id]];
-        userSockets.set(socket.id,user.id)
+        userSockets.set(socket.id, user.id);
       } else {
         users.set(user.id, { id: user.id, sockets: [socket.id] });
         sockets.push(socket.id);
-        userSockets.set(socket.id,user.id)
+        userSockets.set(socket.id, user.id);
       }
 
       const onlineFriends = []; // ids
@@ -57,45 +56,49 @@ const SocketServer = (server) => {
     });
 
     socket.on("message", async (message) => {
-      let = sockets = []
+      let = sockets = [];
 
-      // users that sent the message 
+      // users that sent the message
       if (user.has(massage.fromUser.id)) {
-
-        sockets = users.get(massage.fromUser.id).sockets
+        sockets = users.get(massage.fromUser.id).sockets;
       }
       // users that will receive the message
-      message.toUserId.forEach(id => {
+      message.toUserId.forEach((id) => {
         if (users.has(id)) {
-          sockets = [...sockets, ...users.get(id).sockets]
+          sockets = [...sockets, ...users.get(id).sockets];
         }
-      })
+      });
 
       try {
         const msg = {
           type: message.type,
           fromUserId: message.fromUser.id,
           chatId: message.chatId,
-          message: message.message
-        }
+          message: message.message,
+        };
 
-        const savedMessage = await Message.create(msg)
+        const savedMessage = await Message.create(msg);
 
-        message.User = message.fromUser
-        message.fromUserId = message.fromUser.id
-        message.id = savedMessage.id
-        delete message.fromUser
+        message.User = message.fromUser;
+        message.fromUserId = message.fromUser.id;
+        message.id = savedMessage.id;
+        // this will properly activate our getter and get the url
+        message.message = savedMessage.message;
+        delete message.fromUser;
 
-        sockets.forEach(socket => {
-          io.to(socket).emit('recieved', message)
-        })
-      } catch (e) {
-
-      }
-
+        sockets.forEach((socket) => {
+          io.to(socket).emit("recieved", message);
+        });
+      } catch (e) {}
     });
 
-    socket.on("typing", (message) => {});
+    socket.on("typing", (message) => {
+      message.toUser.Id.forEach((id) => {
+        users.get(id).sockets.forEach((socket) => {
+          io.to(socket).emit("typing", message);
+        });
+      });
+    });
 
     socket.on("add-friend", (chats) => {});
 
@@ -111,19 +114,18 @@ const SocketServer = (server) => {
 
         // if this is the last socket for the user - I want to remove this user from users collection
         if (user.sockets.length > 1) {
-
           // filter expects either true or false -> if it returns true then that elements will be kept inside the array -> if it returns false it will remove the element from the array
-          user.sockets = user.sockets.filter(sock => {
+          user.sockets = user.sockets.filter((sock) => {
             if (sock !== socket.id) return true;
-            userSockets.delete(sock)
-            return false
-          }) 
+            userSockets.delete(sock);
+            return false;
+          });
 
-          users.set(user.id, user)
+          users.set(user.id, user);
         } else {
           // or if it's the last connection here
           // Notify the friends that this user has gone offline
-          const chatters = await getChatters(user.id)
+          const chatters = await getChatters(user.id);
 
           for (let i = 0; i < chatters.length; i++) {
             if (user.has(chatters[i])) {
@@ -136,8 +138,8 @@ const SocketServer = (server) => {
               });
             }
           }
-          userSockets.delete(socket.id)
-          user.delete(user.id)
+          userSockets.delete(socket.id);
+          user.delete(user.id);
         }
       }
     });
