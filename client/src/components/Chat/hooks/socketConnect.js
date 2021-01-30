@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
-import { socketIOClient } from 'socket.io-client'
-import { fetchChats, onlineFriends, onlineFriend, offlineFriend, setSocket } from '../../../store/actions/chat'
+import socketIOClient from 'socket.io-client'
+import { fetchChats, onlineFriends, onlineFriend, offlineFriend, setSocket, receivedMessage, senderTyping, createChat, addUserToGroup, leaveCurrentChat, deleteCurrentChat } from '../../../store/actions/chat'
 
 // this function must start with 'use'
 function useSocket(user, dispatch) {

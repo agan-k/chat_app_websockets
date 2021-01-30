@@ -3,10 +3,13 @@
 import { LOGIN, REGISTER, LOGOUT, UPDATE_PROFILE } from '../types/index'
 
 const initialState = {
-  user: JSON.parse(localStorage.getItem('user')) || {},
-  token: localStorage.getItem('token') || '',
+  // user: JSON.parse(localStorage.getItem('user')) || {},
+  // token: localStorage.getItem('token') || '',
   // double ang will convert this object to true or false depending on if there is a user in local storage or not
-  isLoggedIn: !!JSON.parse(localStorage.getItem('user')),
+  // isLoggedIn: !!JSON.parse(localStorage.getItem('user')),
+  user: {},
+  token: '',
+  isLoggedIn: false
 }
 
 const authReducer = (state = initialState, action) => {

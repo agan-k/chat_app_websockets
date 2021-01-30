@@ -46,6 +46,7 @@ exports.index = async (req, res) => {
 };
 
 exports.create = async (req, res) => {
+  
   // id of the person with which the user is creating a new chat (friend id)
   const { partnerId } = req.body;
 

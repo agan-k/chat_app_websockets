@@ -1,9 +1,10 @@
-import logo from "./logo.svg";
-import "./app.scss";
+import React from 'react'
 import Login from "./components/Auth/Login";
 import Register from "./components/Auth/Register";
 import Chat from "./components/Chat/Chat";
 import ProtectedRoute from './components/Router/ProtectedRoute'
+
+import "./app.scss";
 
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
