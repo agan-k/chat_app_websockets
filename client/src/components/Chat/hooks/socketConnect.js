@@ -1,10 +1,11 @@
 import { useEffect } from 'react'
 import { socketIOClient } from 'socket.io-client'
-import { fetchChats, onlineFriends, onlineFriend, offlineFriend, setSocket, receivedMessage, senderTyping, createChat, addUserToGroup, leaveCurrentChat, deleteCurrentChat } from '../../../store/actions/chat'
+import { fetchChats, onlineFriends, onlineFriend, offlineFriend, setSocket } from '../../../store/actions/chat'
 
 // this function must start with 'use'
 function useSocket(user, dispatch) {
 
+  // This is wrapped in useEffect because we need to ensure all the chats are there before connecting to our socket server
   useEffect(() => {
     dispatch(fetchChats())
       .then(res => {

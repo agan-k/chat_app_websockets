@@ -44,7 +44,101 @@ const chatReducer = (state = initialState, action) => {
     
     case SET_CURRENT_CHAT:
       return {
-        ...state
+        ...state,
+        currentChat: payload,
+        scrollBottom: state.scrollBottom + 1,
+        newMessage: { chatId: null, seen: null}
+      }
+    
+    case FRIENDS_ONLINE: {
+      // we have to do this because we can't mutate the state 
+      // this is how we modify a nested property
+      const chatsCopy = state.chats.map(chat => {
+        return {
+            ...chat,
+            Users: chat.Users.map(user => {
+                if (payload.includes(user.id)) {
+                    return {
+                        ...user,
+                        status: 'online'
+                    }
+                }
+                return user
+            })
+        }
+    })
+
+    return {
+        ...state,
+        chats: chatsCopy
+    }
+    }
+      
+    case FRIEND_ONLINE: {
+      let currentChatCopy = { ...state.currentChat }
+      
+      const chatsCopy = state.chats.map(chat => {
+        const Users = chat.Users.map(user => {
+          if (user.id === parseInt(payload.id)) {
+            return {
+              ...user,
+              status: 'online'
+            }
+          }
+          return user
+        })
+        if (chat.id === currentChatCopy.id) {
+          currentChatCopy = {
+            ...currentChatCopy,
+            Users
+          }
+        }
+
+        return {
+          ...chat,
+          Users
+        }
+      })
+
+      return {
+        // Now that we have a copy of chats we can return our state
+        ...state,
+        chats: chatsCopy,
+        currentChat: currentChatCopy
+      }
+      }
+    case FRIEND_OFFLINE: {
+      let currentChatCopy = { ...state.currentChat }
+      
+      const chatsCopy = state.chats.map(chat => {
+        const Users = chat.Users.map(user => {
+          if (user.id === parseInt(payload.id)) {
+            return {
+              ...user,
+              status: 'offline'
+            }
+          }
+          return user
+        })
+        if (chat.id === currentChatCopy.id) {
+          currentChatCopy = {
+            ...currentChatCopy,
+            Users
+          }
+        }
+
+        return {
+          ...chat,
+          Users
+        }
+      })
+
+      return {
+        // Now that we have a copy of chats we can return our state
+        ...state,
+        chats: chatsCopy,
+        currentChat: currentChatCopy
+      }
       }
     
     default: {

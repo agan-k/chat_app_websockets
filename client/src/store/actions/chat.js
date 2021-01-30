@@ -35,3 +35,16 @@ export const fetchChats = () => dispatch => {
 export const setCurrentChat = (chat) => (dispatch) => {
   dispatch({ type: SET_CURRENT_CHAT, payload: chat })
 }
+export const onlineFriends = (friends) => (dispatch) => {
+  dispatch({ type: FRIENDS_ONLINE, payload: friends })
+}
+export const onlineFriend = (friend) => (dispatch) => {
+  dispatch({ type: FRIEND_ONLINE, payload: friend })
+} 
+export const offlineFriend = (friend) => (dispatch) => {
+  dispatch({ type: FRIEND_OFFLINE, payload: friend })
+}
+
+export const setSocket = (socket) => dispatch => {
+  dispatch({ type: SET_SOCKET, payload: socket })
+}

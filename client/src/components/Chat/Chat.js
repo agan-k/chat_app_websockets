@@ -15,11 +15,11 @@ const Chat = () => {
 
   useSocket(user, dispatch)
 
-  useEffect(() => {
-    dispatch(fetchChats()).then(res => console.log(res).catch(err => console.log(err)))
-  }, [dispatch])
+  // useEffect(() => {
+  //   dispatch(fetchChats()).then(res => console.log(res).catch(err => console.log(err)))
+  // }, [dispatch])
 
-  
+
   return (
     <div className="chat-container">
       <Navbar />
