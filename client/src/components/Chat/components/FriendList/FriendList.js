@@ -9,6 +9,7 @@ import "./FriendList.scss";
 const FriendList = () => {
   const dispatch = useDispatch();
   const chats = useSelector((state) => state.chatReducer.chats);
+  console.log(chats.length, 'friend list')
   const socket = useSelector((state) => state.chatReducer.socket);
 
   const [showFriendsModal, setShowFriendsModal] = useState(false);
@@ -43,13 +44,13 @@ const FriendList = () => {
 
       <div className="friend-box">
         {chats.length > 0 ? (
-          chats.map((chat) => {
+          chats.map((chat) => (
             <Friend
               onClick={() => openChat(chat)}
               chat={chat}
               key={chat.id}
-            />;
-          })
+            />
+          ))
         ) : (
           <p className="no-chat">No friends here</p>
         )}

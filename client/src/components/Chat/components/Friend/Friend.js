@@ -6,6 +6,7 @@ import { userStatus } from "../../../../utils/helpers";
 import "./Friend.scss";
 
 const Friend = ({ chat, click }) => {
+  console.log(chat, 'friend')
   const currentChat = useSelector((state) => state.chatReducer.currentChat);
 
   const isChatOpened = () => {

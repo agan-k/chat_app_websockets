@@ -16,13 +16,15 @@
         img {
             display: flex;
             align-self: center;
-            margin-right: 5px
+            margin-right: 5px;
+            height: 4rem;
+            width: auto;
         }
 
         .friend-info {
             display: flex;
             align-self: center;
-            flex-direction: column
+            flex-direction: column;
         }
     }
 

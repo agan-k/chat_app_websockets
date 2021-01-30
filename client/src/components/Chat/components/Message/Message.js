@@ -2,6 +2,7 @@ import React from "react";
 import "./Message.scss";
 
 const Message = ({ user, chat, index, message }) => {
+  
   const determineMargin = () => {
     if (index + 1 === chat.Messages.length) return;
 

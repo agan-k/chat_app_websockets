@@ -1,5 +1,4 @@
 const models = require("../models");
-
 // op gives us fine tuning on the restrictions on the relationships between tables
 const { Op } = require("sequelize");
 const { sequelize } = require("../models");
@@ -46,7 +45,6 @@ exports.index = async (req, res) => {
 };
 
 exports.create = async (req, res) => {
-  
   // id of the person with which the user is creating a new chat (friend id)
   const { partnerId } = req.body;
 
@@ -100,6 +98,25 @@ exports.create = async (req, res) => {
     );
     await t.commit();
 
+    // const chatNew = await Chat.findOne({
+    //     where: {
+    //         id: chat.id
+    //     },
+    //     include: [
+    //         {
+    //             model: User,
+    //             where: {
+    //                 [Op.not]: {
+    //                     id: req.user.id
+    //                 }
+    //             }
+    //         },
+    //         {
+    //             model: Message
+    //         }
+    //     ]
+    // })
+
     const creator = await User.findOne({
       where: {
         id: req.user.id,
@@ -115,15 +132,15 @@ exports.create = async (req, res) => {
     const forCreator = {
       id: chat.id,
       type: "dual",
-      User: [partner],
+      Users: [partner],
       Messages: [],
     };
 
     const forReceiver = {
       id: chat.id,
       type: "dual",
-      User: [creator],
-      Message: [],
+      Users: [creator],
+      Messages: [],
     };
 
     return res.json([forCreator, forReceiver]);
@@ -201,10 +218,10 @@ exports.addUserToGroup = async (req, res) => {
       ],
     });
 
-    Chat.Messages.reverse();
+    chat.Messages.reverse();
 
     // Check if already in the group
-    chat.User.forEach((user) => {
+    chat.Users.forEach((user) => {
       if (user.id === userId) {
         return res.status(403).json({ message: "User already in the group" });
       }
@@ -243,7 +260,7 @@ exports.deleteChat = async (req, res) => {
         },
       ],
     });
-    const notifyUser = chat.User.map((user) => user.id);
+    const notifyUser = chat.Users.map((user) => user.id);
 
     await chat.destroy();
     return res.json({ chatId: id, notifyUser });
@@ -266,13 +283,13 @@ exports.leaveCurrentChat = async (req, res) => {
       ],
     });
 
-    if (chat.User.length === 2) {
+    if (chat.Users.length === 2) {
       return res
         .status(405)
         .json({ status: "Error", message: "You cannot leave this chat" });
     }
 
-    if (chat.User.length === 3) {
+    if (chat.Users.length === 3) {
       chat.type = "dual";
       chat.save();
     }
@@ -291,13 +308,13 @@ exports.leaveCurrentChat = async (req, res) => {
       },
     });
 
-    const notifyUser = chat.User.map((user) => user.id);
+    const notifyUsers = chat.Users.map((user) => user.id);
 
     return res.json({
       chatId: chat.id,
       userId: req.user.id,
       currentUserId: req.user.id,
-      notifyUser,
+      notifyUsers,
     });
   } catch (e) {
     return res.status(500).json({ status: "Error", message: e.message });
