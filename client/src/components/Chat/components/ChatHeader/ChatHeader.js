@@ -14,7 +14,7 @@ const ChatHeader = ({ chat }) => {
       <div className="chatter">
         {chat.Users.map((user) => {
           return (
-            <div className="chatter-info">
+            <div key={user.id} className="chatter-info">
               <h3>
                 {user.firstName} {user.lastName}
               </h3>

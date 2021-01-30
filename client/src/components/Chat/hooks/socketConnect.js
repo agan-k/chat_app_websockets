@@ -2,18 +2,20 @@ import { useEffect } from 'react'
 import { socketIOClient } from 'socket.io-client'
 import { fetchChats, onlineFriends, onlineFriend, offlineFriend, setSocket, receivedMessage, senderTyping, createChat, addUserToGroup, leaveCurrentChat, deleteCurrentChat } from '../../../store/actions/chat'
 
+// this function must start with 'use'
 function useSocket(user, dispatch) {
 
   useEffect(() => {
     dispatch(fetchChats())
       .then(res => {
 
-        const socket = socketIOClient.connect('http://127.0.0.1:3000')
+        const socket = socketIOClient.connect('http://127.0.0.1:3001')
 
         dispatch(setSocket(socket))
 
         socket.emit('join', user)
 
+        // the 'typing' matches what you call it on the backend
         socket.on('typing', (sender) => {
           dispatch(senderTyping(sender))
         })
