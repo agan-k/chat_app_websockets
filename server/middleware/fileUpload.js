@@ -69,4 +69,29 @@ const fileFilter = (req, file, cb) => {
 
   return multer({storage, fileFilter}).single('avatar')
 
-})()
+  })()
+
+exports.chatFile = ((req, res, nex) => {
+  const storage = multer.diskStorage({
+    // we're going to store the files in their own subdirectory inside the uploads tab
+    destination: function (req, file, cb) {
+      const { id } = req.body
+      const dest = `uploads/chat/${id}`
+
+      // the fs module allows us to create different methods on our files
+      fs.access(dest, (error) => {
+        if (error) {
+          // if the file doesn't exist
+          return fs.mkdir(dest, (error) => {
+            cb(error, dest)
+          })
+        } else {
+          return cb(null, dest)
+        }
+      })
+    },
+    filename: generateFileName
+  })
+
+  return multer({storage, fileFilter}).single('image')
+  })()
