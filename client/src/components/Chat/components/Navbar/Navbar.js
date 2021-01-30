@@ -64,7 +64,7 @@ const Navbar = () => {
         {showProfileModal && (
           <Modal click={() => setShowProfileModal(false)}>
             <Fragment key="header">
-              <h3 className="m-0">Modal Header</h3>
+              <h3 className="m-0">Update Profile</h3>
             </Fragment>
             <Fragment key="body">
               <form action="">

@@ -1,6 +1,6 @@
 const socketIo = require("socket.io");
 const { sequelize } = require("sequelize");
-
+const Message = require('../models').Message
 // inbuilt bap allows us to save key value pairs - like an Object, but better suited for our purposes here - It also has some inbuilt methods like has, set and complete
 const users = new Map();
 const userSockets = new Map();
@@ -56,7 +56,44 @@ const SocketServer = (server) => {
       // io.to(socket.id).emit("typing", "user typing");
     });
 
-    socket.on("message", async (message) => {});
+    socket.on("message", async (message) => {
+      let = sockets = []
+
+      // users that sent the message 
+      if (user.has(massage.fromUser.id)) {
+
+        sockets = users.get(massage.fromUser.id).sockets
+      }
+      // users that will receive the message
+      message.toUserId.forEach(id => {
+        if (users.has(id)) {
+          sockets = [...sockets, ...users.get(id).sockets]
+        }
+      })
+
+      try {
+        const msg = {
+          type: message.type,
+          fromUserId: message.fromUser.id,
+          chatId: message.chatId,
+          message: message.message
+        }
+
+        const savedMessage = await Message.create(msg)
+
+        message.User = message.fromUser
+        message.fromUserId = message.fromUser.id
+        message.id = savedMessage.id
+        delete message.fromUser
+
+        sockets.forEach(socket => {
+          io.to(socket).emit('recieved', message)
+        })
+      } catch (e) {
+
+      }
+
+    });
 
     socket.on("typing", (message) => {});
 

@@ -48,3 +48,7 @@ export const offlineFriend = (friend) => (dispatch) => {
 export const setSocket = (socket) => dispatch => {
   dispatch({ type: SET_SOCKET, payload: socket })
 }
+
+export const receivedMessage = (message, userId) => dispatch => {
+  dispatch({ type: RECEIVED_MESSAGE, payload: {message, userId} })
+}
