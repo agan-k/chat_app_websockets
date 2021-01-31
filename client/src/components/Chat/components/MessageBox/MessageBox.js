@@ -4,20 +4,20 @@ import Message from "../Message/Message";
 import "./MessageBox.scss";
 
 const MessageBox = ({ chat }) => {
-
   const user = useSelector((state) => state.authReducer.user);
-  const scrollBottom = useSelector(state => state.chatReducer.scrollBottom)
-  const msgBox = useRef()
+  const scrollBottom = useSelector((state) => state.chatReducer.scrollBottom);
+  const senderTyping = useSelector((state) => state.chatReducer.senderTyping);
+  const msgBox = useRef();
 
   useEffect(() => {
     setTimeout(() => {
-      scrollManual(msgBox.current.scrollHeight)
-    }, 100)
-  }, [scrollBottom])
+      scrollManual(msgBox.current.scrollHeight);
+    }, 100);
+  }, [scrollBottom]);
 
   const scrollManual = (value) => {
-    msgBox.current.scrollTop = value
-  }
+    msgBox.current.scrollTop = value;
+  };
 
   return (
     // registering our useRef hook
@@ -33,6 +33,16 @@ const MessageBox = ({ chat }) => {
           />
         );
       })}
+      {senderTyping.typing && senderTyping.chatId === chat.id ? (
+        <div className="message">
+          <div className="other-person">
+            <p className="m-0">
+              {senderTyping.fromUser.firstName} {senderTyping.fromUser.lastName}
+              ...
+            </p>
+          </div>
+        </div>
+      ) : null}
     </div>
   );
 };

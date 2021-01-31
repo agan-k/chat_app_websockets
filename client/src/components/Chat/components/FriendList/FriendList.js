@@ -15,6 +15,8 @@ const FriendList = () => {
   const [showFriendsModal, setShowFriendsModal] = useState(false);
   const [suggestions, setSuggestions] = useState([]);
 
+  console.log(showFriendsModal)
+
   const openChat = (chat) => {
     dispatch(setCurrentChat(chat));
   };
@@ -42,11 +44,11 @@ const FriendList = () => {
       </div>
       <hr />
 
-      <div className="friend-box">
+      <div className="friends-box">
         {chats.length > 0 ? (
           chats.map((chat) => (
             <Friend
-              onClick={() => openChat(chat)}
+              click={() => openChat(chat)}
               chat={chat}
               key={chat.id}
             />

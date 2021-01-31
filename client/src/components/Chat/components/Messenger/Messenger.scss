@@ -33,7 +33,7 @@
                 .fa-icon {
                     position: relative;
                     font-size: 20px;
-                    color: $bg-dark;
+                    color: $primary;
                     margin-right: 5px;
                     min-width: 20px;
                 }
@@ -47,7 +47,7 @@
 
         &>.fa-icon {
             font-size: 20px;
-            color: $bg-dark;
+            color: $primary;
             right: 0;
             position: absolute;
             top: 0;

@@ -6,7 +6,7 @@ import { userStatus } from "../../../../utils/helpers";
 import "./Friend.scss";
 
 const Friend = ({ chat, click }) => {
-  console.log(chat, 'friend')
+
   const currentChat = useSelector((state) => state.chatReducer.currentChat);
 
   const isChatOpened = () => {
@@ -18,7 +18,7 @@ const Friend = ({ chat, click }) => {
     if (chat.Messages.length === 0) return "";
 
     // get the last message by accessing the last index with -1
-    const message = chat.Message[chat.Messages.length - 1];
+    const message = chat.Messages[chat.Messages.length - 1];
     return message.type === "image" ? "image uploaded" : message.message;
   };
   return (
@@ -28,7 +28,7 @@ const Friend = ({ chat, click }) => {
         <img src={chat.Users[0].avatar} alt="User avatar" />
         <div className='friend-info'>
           <h4 className="m-0">
-            {chat.Users[0].firstName} {chat.Users[0].firstName}
+            {chat.Users[0].firstName} {chat.Users[0].lastName}
           </h4>
           <h5 className="m-0">{lastMessage()}</h5>
         </div>
