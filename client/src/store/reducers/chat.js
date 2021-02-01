@@ -1,4 +1,3 @@
-
 import {
   FETCH_CHATS,
   SET_CURRENT_CHAT,
@@ -106,6 +105,7 @@ const chatReducer = (state = initialState, action) => {
 
       const chatsCopy = state.chats.map((chat) => {
         const Users = chat.Users.map((user) => {
+
           if (user.id === parseInt(payload.id)) {
             return {
               ...user,
@@ -114,6 +114,7 @@ const chatReducer = (state = initialState, action) => {
           }
           return user;
         });
+        
         if (chat.id === currentChatCopy.id) {
           currentChatCopy = {
             ...currentChatCopy,
@@ -214,6 +215,7 @@ const chatReducer = (state = initialState, action) => {
 
       const chatsCopy = state.chats.map((chat) => {
         if (chat.id === id) {
+          // Because we have to append our new messages in front of the old ones
           const shifted = [...messages, ...chat.Messages];
 
           currentChatCopy = {
@@ -221,8 +223,13 @@ const chatReducer = (state = initialState, action) => {
             Messages: shifted,
             Pagination: pagination,
           };
+          return {
+            ...chat,
+            Messages: shifted,
+            Pagination: pagination,
+          };
         }
-        return chat;
+        return chat
       });
 
       return {

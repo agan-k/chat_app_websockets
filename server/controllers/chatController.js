@@ -98,25 +98,6 @@ exports.create = async (req, res) => {
     );
     await t.commit();
 
-    // const chatNew = await Chat.findOne({
-    //     where: {
-    //         id: chat.id
-    //     },
-    //     include: [
-    //         {
-    //             model: User,
-    //             where: {
-    //                 [Op.not]: {
-    //                     id: req.user.id
-    //                 }
-    //             }
-    //         },
-    //         {
-    //             model: Message
-    //         }
-    //     ]
-    // })
-
     const creator = await User.findOne({
       where: {
         id: req.user.id,
@@ -285,7 +266,7 @@ exports.leaveCurrentChat = async (req, res) => {
 
     if (chat.Users.length === 2) {
       return res
-        .status(405)
+        .status(403)
         .json({ status: "Error", message: "You cannot leave this chat" });
     }
 
@@ -304,7 +285,7 @@ exports.leaveCurrentChat = async (req, res) => {
     await Message.destroy({
       where: {
         chatId,
-        fromUseId: req.user.id,
+        fromUserId: req.user.id,
       },
     });
 

@@ -1,6 +1,6 @@
 const router = require('express').Router()
 const { index, create, messages, deleteChat, imageUpload, addUserToGroup, leaveCurrentChat } = require('../controllers/chatController')
-// const { validate } = require('../validators')
+const { validate } = require('../validators')
 const { auth } = require('../middleware/auth')
 const { chatFile } = require('../middleware/fileUpload')
 

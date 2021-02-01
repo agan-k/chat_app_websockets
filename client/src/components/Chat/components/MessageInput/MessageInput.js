@@ -48,7 +48,10 @@ const MessageInput = ({ chat }) => {
   };
 
   const handleKeyDown = (e, imageUpload) => {
-    if (e.key === "Enter") sendMessage(imageUpload);
+    if (e.key === "Enter") {
+      // debugger;
+      sendMessage(imageUpload);
+    } 
   };
 
   const sendMessage = (imageUpload) => {
@@ -100,6 +103,7 @@ const MessageInput = ({ chat }) => {
   };
 
   useEffect(() => {
+    // Since message input is not a parent of msg-box we have to use the only way of selecting this element - because we can't just pass the reference
     const msgBox = document.getElementById("msg-box");
     if (
       !newMessage.seen &&
@@ -174,6 +178,7 @@ const MessageInput = ({ chat }) => {
       <input
         ref={fileUpload}
         className="chat-image"
+        id='chat-image'
         type="file"
         onChange={(e) => setImage(e.target.files[0])}
       />

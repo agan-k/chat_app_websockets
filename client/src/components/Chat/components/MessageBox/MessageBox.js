@@ -43,10 +43,12 @@ const MessageBox = ({ chat }) => {
 
   useEffect(() => {
     setTimeout(() => {
+      // only scroll 10% from the bottom
       scrollManual(Math.ceil(msgBox.current.scrollHeight * 0.10))
     }, 100)
   }, [scrollUp])
 
+  // listening for whenever sender typing changes
   useEffect(() => {
     if (senderTyping.typing && msgBox.current.scrollTop > msgBox.current.scrollHeight * 0.30) {
       setTimeout(() => {
@@ -65,7 +67,7 @@ const MessageBox = ({ chat }) => {
 
   return (
     // registering our useRef hook
-    <div onScroll={handleInfiniteScroll} className="msg-box" ref={msgBox}>
+    <div onScroll={handleInfiniteScroll} className="msg-box" id="msg-box" ref={msgBox}>
       {
         loading
           ? <p className="loader m-0">

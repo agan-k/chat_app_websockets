@@ -58,7 +58,7 @@ const SocketServer = (server) => {
       let = sockets = [];
 
       // users that sent the message
-      if (user.has(massage.fromUser.id)) {
+      if (users.has(massage.fromUser.id)) {
         sockets = users.get(massage.fromUser.id).sockets;
       }
       // users that will receive the message
@@ -100,16 +100,20 @@ const SocketServer = (server) => {
     });
 
     socket.on("add-friend", (chats) => {
+      console.log(chats, 'socket back end')
       try {
         let online = "offline";
         if (users.has(chats[1].Users[0].id)) {
-          online = "online";
-          chats[0].Users[0].status = "online";
+          // If this user is online then change this flag to true
+          online = 'online'
+          // First user that started the chat - change status to online also
+          chats[0].Users[0].status = "online"; // because front end is expecting this string
           users.get(chats[1].Users[0].id).sockets.forEach((socket) => {
             io.to(socket).emit("new-chat", chats[0]);
           });
         }
 
+        // Check if the user is actually online
         if (users.has(chats[0].Users[0].id)) {
           chats[1].Users[0].status = online;
           users.get(chats[0].Users[0].id).sockets.forEach((socket) => {
@@ -126,7 +130,7 @@ const SocketServer = (server) => {
         newChatter.status = "online";
       }
 
-      // old users
+      // Notify old users
       chat.Users.forEach((user, index) => {
         if (users.has(user.id)) {
           chat.Users[index].status = "online";

@@ -42,6 +42,7 @@ exports.search = async (req, res) => {
             sequelize.fn('concat', sequelize.col('lastName'))
             ,
             {
+              // iLike treats both uppercase and lowercase the same
               [sequelize.Op.iLike]: `%${req.query.term}%`
             }
           ),
