@@ -9,13 +9,13 @@ import "./FriendList.scss";
 const FriendList = () => {
   const dispatch = useDispatch();
   const chats = useSelector((state) => state.chatReducer.chats);
-  console.log(chats.length, 'friend list')
+  // console.log(chats.length, 'friend list')
   const socket = useSelector((state) => state.chatReducer.socket);
 
   const [showFriendsModal, setShowFriendsModal] = useState(false);
   const [suggestions, setSuggestions] = useState([]);
 
-  console.log(showFriendsModal)
+  // console.log(showFriendsModal)
 
   const openChat = (chat) => {
     dispatch(setCurrentChat(chat));

@@ -10,7 +10,7 @@ const Messenger = () => {
   const chat = useSelector(state => state.chatReducer.currentChat)
 
   const activeChat = () => {
-    console.log(chat, 'Messenger')
+    // console.log(chat, 'Messenger')
     // checking if there are any keys or properties on the object
     return Object.keys(chat).length > 0;
 

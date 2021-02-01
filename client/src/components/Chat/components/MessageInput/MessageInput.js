@@ -83,39 +83,38 @@ const MessageInput = ({ chat }) => {
   };
 
   const selectEmoji = (emoji) => {
+    // this function merges the selected emoji along with the rest of the image
     const startPosition = msgInput.current.selectionStart;
     const endPosition = msgInput.current.selectionEnd;
     const emojiLength = emoji.native.length;
     const value = msgInput.current.value;
+    // Setting the message in state with each sub string either side of the added emoji
     setMessage(
-      value.subString(0, startPosition) +
+      value.substring(0, startPosition) +
         emoji.native +
         value.substring(endPosition, value.length)
     );
     msgInput.current.focus();
+    // Set a cursor to the end of the input
     msgInput.current.selectionEnd = endPosition + emojiLength;
   };
 
-  useEffect(
-    () => {
-      const msgBox = document.getElementById("msg-box");
-      if (
-        !newMessage.seen &&
-        newMessage.chatId === chat.id &&
-        msgBox.scrollHeight !== msgBox.clientHeight
-      ) {
-        if (msgBox.scrollTop > msgBox.scrollHeight * 0.3) {
-          dispatch(incrementScroll());
-        } else {
-          setShowNewMessageNotification(true);
-        }
+  useEffect(() => {
+    const msgBox = document.getElementById("msg-box");
+    if (
+      !newMessage.seen &&
+      newMessage.chatId === chat.id &&
+      msgBox.scrollHeight !== msgBox.clientHeight
+    ) {
+      if (msgBox.scrollTop > msgBox.scrollHeight * 0.3) {
+        dispatch(incrementScroll());
       } else {
-        setShowNewMessageNotification(false);
+        setShowNewMessageNotification(true);
       }
-    },
-    newMessage,
-    dispatch
-  );
+    } else {
+      setShowNewMessageNotification(false);
+    }
+  }, [newMessage, dispatch]);
 
   const showNewMessage = () => {
     dispatch(incrementScroll());

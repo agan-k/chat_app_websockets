@@ -2,6 +2,7 @@ import React from "react";
 import "./Message.scss";
 
 const Message = ({ user, chat, index, message }) => {
+  console.log(message)
   
   const determineMargin = () => {
     if (index + 1 === chat.Messages.length) return;
@@ -20,7 +21,7 @@ const Message = ({ user, chat, index, message }) => {
       <div
         className={message.fromUserId === user.id ? "owner" : "other-person"}
       >
-        {message.FromUserId !== user.id ? (
+        {message.fromUserId !== user.id ? (
           <h6 className="m-0">
             {message.User.firstName} {message.User.lastName}
           </h6>

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import { useEffect } from 'react'
 import socketIOClient from 'socket.io-client'
 import { fetchChats, onlineFriends, onlineFriend, offlineFriend, setSocket, receivedMessage, senderTyping, createChat, addUserToGroup, leaveCurrentChat, deleteCurrentChat } from '../../../store/actions/chat'
 
@@ -57,7 +57,6 @@ function useSocket(user, dispatch) {
           dispatch(deleteCurrentChat(chatId))
         })
 
-        console.log(res)
       })
     .catch(err => console.log(err))
   }, [dispatch])
