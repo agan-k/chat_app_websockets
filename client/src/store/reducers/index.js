@@ -3,6 +3,6 @@ import authReducer from './auth'
 import chatReducer from './chat'
 
 export default combineReducers({
-  authReducer,
-  chatReducer
+    authReducer,
+    chatReducer
 })

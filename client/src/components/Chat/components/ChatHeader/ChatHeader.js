@@ -100,7 +100,7 @@ const ChatHeader = ({ chat }) => {
               type="text"
               placeholder="Search..."
             />
-            <div id="suggestions">
+            <div className="suggestions">
               {suggestions.map((user) => {
                 return (
                   <div key={user.id} className="suggestion">

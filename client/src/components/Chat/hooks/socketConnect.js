@@ -2,65 +2,64 @@ import { useEffect } from 'react'
 import socketIOClient from 'socket.io-client'
 import { fetchChats, onlineFriends, onlineFriend, offlineFriend, setSocket, receivedMessage, senderTyping, createChat, addUserToGroup, leaveCurrentChat, deleteCurrentChat } from '../../../store/actions/chat'
 
-// this function must start with 'use'
 function useSocket(user, dispatch) {
 
-  // This is wrapped in useEffect because we need to ensure all the chats are there before connecting to our socket server
-  useEffect(() => {
-    dispatch(fetchChats())
-      .then(res => {
+    useEffect(() => {
 
-        const socket = socketIOClient.connect('http://127.0.0.1:3001')
+        dispatch(fetchChats())
+            .then(res => {
 
-        dispatch(setSocket(socket))
+                const socket = socketIOClient.connect('http://127.0.0.1:3001')
 
-        socket.emit('join', user)
+                dispatch(setSocket(socket))
 
-        // the 'typing' matches what you call it on the backend
-        socket.on('typing', (sender) => {
-          dispatch(senderTyping(sender))
-        })
+                socket.emit('join', user)
 
-        socket.on('friends', (friends) => {
-          console.log('Friends', friends)
-          dispatch(onlineFriends(friends))
-        })
-        
-        socket.on('online', (user) => {
-          dispatch(onlineFriend(user))
-          console.log('Online', user)
-        })
+                socket.on('typing', (sender) => {
+                    dispatch(senderTyping(sender))
+                })
 
-        socket.on('offline', (user) => {
-          dispatch(offlineFriend(user))
-          console.log("Offline", user)
-        })
+                socket.on('friends', (friends) => {
+                    console.log("Friends", friends);
+                    dispatch(onlineFriends(friends))
+                })
 
-        socket.on('received', (message) => {
-          dispatch(receivedMessage(message, user.id))
-        })
+                socket.on('online', (user) => {
+                    dispatch(onlineFriend(user))
+                    console.log("Online", user);
+                })
 
-        socket.on('new-chat', (chat) => {
-          dispatch(createChat(chat))
-        })
+                socket.on('offline', (user) => {
+                    dispatch(offlineFriend(user))
+                    console.log("Offline", user);
+                })
 
-        socket.on('added-user-to-group', (group) => {
-          dispatch(addUserToGroup(group))
-        })
+                socket.on('received', (message) => {
+                    dispatch(receivedMessage(message, user.id))
+                })
 
-        socket.on('remove-user-from-chat', (data) => {
-          data.currentUserId = user.id
-          dispatch(leaveCurrentChat(data))
-        })
+                socket.on('new-chat', (chat) => {
+                    dispatch(createChat(chat))
+                })
 
-        socket.on('delete-chat', (chatId) => {
-          dispatch(deleteCurrentChat(chatId))
-        })
+                socket.on('added-user-to-group', (group) => {
+                    dispatch(addUserToGroup(group))
+                })
 
-      })
-    .catch(err => console.log(err))
-  }, [dispatch])
+                socket.on('remove-user-from-chat', (data) => {
+                    data.currentUserId = user.id
+                    dispatch(leaveCurrentChat(data))
+                })
+
+                socket.on('delete-chat', (chatId) => {
+                    dispatch(deleteCurrentChat(chatId))
+                })
+
+                console.log(res)
+            })
+            .catch(err => console.log(err))
+    }, [dispatch])
 
 }
 
-export default useSocket;
+export default useSocket
