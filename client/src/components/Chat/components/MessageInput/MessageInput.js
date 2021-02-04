@@ -11,7 +11,7 @@ const MessageInput = ({ chat }) => {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.authReducer.user);
   const socket = useSelector((state) => state.chatReducer.socket);
-  const chatReducer = useSelector(state => state.chatReducer)
+  // const chatReducer = useSelector(state => state.chatReducer)
   const newMessage = useSelector((state) => state.chatReducer.newMessage);
   const [message, setMessage] = useState("");
   const [image, setImage] = useState("");
