@@ -175,14 +175,17 @@ const chatReducer = (state = initialState, action) => {
 
         return chat;
       });
+
       if (scrollBottom === state.scrollBottom) {
         return {
           ...state,
           chats: chatsCopy,
           currentChat: currentChatCopy,
           newMessage,
-        };
+          senderTyping: { typing: false }
+        }
       }
+      
       return {
         ...state,
         chats: chatsCopy,

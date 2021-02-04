@@ -132,6 +132,7 @@ exports.create = async (req, res) => {
 };
 
 exports.messages = async (req, res) => {
+  console.log(req, res)
   const limit = 10;
   const page = req.query.page || 1;
   const offset = page > 1 ? page * limit : 0;

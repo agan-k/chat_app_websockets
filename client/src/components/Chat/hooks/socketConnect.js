@@ -8,9 +8,9 @@ function useSocket(user, dispatch) {
   // This is wrapped in useEffect because we need to ensure all the chats are there before connecting to our socket server
   useEffect(() => {
     dispatch(fetchChats())
-      .then(res => {
+    .then(res => {
 
-        const socket = socketIOClient.connect('http://127.0.0.1:3001')
+        const socket = socketIOClient.connect('http://127.0.0.1:3000')
 
         dispatch(setSocket(socket))
 
@@ -40,6 +40,8 @@ function useSocket(user, dispatch) {
           dispatch(receivedMessage(message, user.id))
         })
 
+      
+
         socket.on('new-chat', (chat) => {
           dispatch(createChat(chat))
         })
@@ -59,7 +61,7 @@ function useSocket(user, dispatch) {
 
       })
     .catch(err => console.log(err))
-  }, [dispatch])
+  }, [dispatch, user])
 
 }
 

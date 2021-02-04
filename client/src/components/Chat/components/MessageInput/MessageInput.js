@@ -11,17 +11,22 @@ const MessageInput = ({ chat }) => {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.authReducer.user);
   const socket = useSelector((state) => state.chatReducer.socket);
+  const chatReducer = useSelector(state => state.chatReducer)
   const newMessage = useSelector((state) => state.chatReducer.newMessage);
-
-  const fileUpload = useRef();
-  const msgInput = useRef();
-
   const [message, setMessage] = useState("");
   const [image, setImage] = useState("");
   const [showEmojiPicker, setShowEmojiPicker] = useState(false);
   const [showNewMessageNotification, setShowNewMessageNotification] = useState(
     false
   );
+
+  // console.log(socket, 'cocket')
+  // console.log(chat, 'chat')
+  // console.log(message, 'message')
+
+  const fileUpload = useRef();
+  const msgInput = useRef();
+
 
   const handleMessage = (e) => {
     const value = e.target.value;
@@ -49,14 +54,13 @@ const MessageInput = ({ chat }) => {
 
   const handleKeyDown = (e, imageUpload) => {
     if (e.key === "Enter") {
-      // debugger;
       sendMessage(imageUpload);
     } 
   };
 
   const sendMessage = (imageUpload) => {
     if (message.length < 1 && !imageUpload) return;
-
+    
     const msg = {
       type: imageUpload ? "image" : "text",
       fromUser: user,
