@@ -10,7 +10,7 @@ function useSocket(user, dispatch) {
     dispatch(fetchChats())
     .then(res => {
 
-        const socket = socketIOClient.connect('http://127.0.0.1:3000')
+        const socket = socketIOClient.connect('http://127.0.0.1:3001')
 
         dispatch(setSocket(socket))
 

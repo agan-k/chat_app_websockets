@@ -2,6 +2,8 @@ const express = require('express')
 
 const config = require('./config/app')
 
+console.log(config)
+
 const bodyParser = require('body-parser')
 
 const cors = require('cors')
